@@ -1,6 +1,6 @@
 const LcdModule = require('bindings')('LCDModule');
 /**
- * Creates an instance of LightSensor.
+ * Creates an instance of LCDModule.
  * @param {int} add The second argument.
  * @returns {LCDModule} the LCDModule object
  */
