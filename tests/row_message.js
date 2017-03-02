@@ -1,17 +1,16 @@
-var _lcd = require('../index.js'),
-  lcd = new _lcd();
+const LCD = require('../index.js');
 
-    lcd.row_1_msg("Renglon 1");
-    lcd.row_2_msg("Renglon 2");
+const lcd = new LCD();
 
-setInterval(()=>{
-  true;
-},2000);
+lcd.message('Renglon 1', 1);
+lcd.message('Renglon 2', 2);
 
-process.on('SIGTERM', function () {
+setInterval(() => {}, 2000);
+
+process.on('SIGTERM', () => {
   process.exit();
 });
 
-process.on('SIGINT', function () {
+process.on('SIGINT', () => {
   process.exit();
 });

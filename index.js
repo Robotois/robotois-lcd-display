@@ -1,72 +1,67 @@
-var lcdModule = require('bindings')('LCDModule');
+const LcdModule = require('bindings')('LCDModule');
+/**
+ * Creates an instance of LightSensor.
+ * @param {int} add The second argument.
+ * @returns {LCDModule} the LCDModule object
+ */
+function LCDModule(add = 0) {
+  const self = this;
+  this.lcd = new LcdModule(add);
 
-function LCDModule(_add = 0) {
-  var self = this;
-  this.lcd = new lcdModule(_add);
-
-  process.on('SIGINT', function () {
+  process.on('SIGINT', () => {
     self.lcd.release();
   });
 
-  process.on('SIGTERM', function () {
+  process.on('SIGTERM', () => {
     self.lcd.release();
   });
 }
 
-LCDModule.prototype.message = function(_msg) {
-  this.lcd.home();
-  this.lcd.message(_msg);
-}
+LCDModule.prototype.message = function message(msg, row) {
+  if (row === 2 || row === 1) {
+    this.lcd.setCursor(row, 1);
+  } else {
+    this.lcd.home();
+  }
+  this.lcd.message(msg);
+};
 
-LCDModule.prototype.row_1_msg = function(_msg) {
-  this.lcd.setCursor(1,1);
-  this.lcd.message(_msg);
-}
+LCDModule.prototype.setCursor = function setCursor(row, col) {
+  this.lcd.setCursor(row, col);
+};
 
-LCDModule.prototype.row_2_msg = function(_msg) {
-  this.lcd.setCursor(2,1);
-  this.lcd.message(_msg);
-}
-
-LCDModule.prototype.setCursor = function(row,col) {
-  this.lcd.setCursor(row,col);
-}
-
-LCDModule.prototype.clear = function() {
+LCDModule.prototype.clear = function clear() {
   this.lcd.clear();
-}
+};
 
-LCDModule.prototype.home = function() {
+LCDModule.prototype.home = function home() {
   this.lcd.home();
-}
-LCDModule.prototype.bklBlink = function() {
+};
+LCDModule.prototype.bklBlink = function bklBlink() {
   this.lcd.bklBlink();
-}
+};
 
-LCDModule.prototype.blink = function() {
-  var interval = setInterval(()=>{
+LCDModule.prototype.blink = function blink() {
+  const interval = setInterval(() => {
     this.lcd.bklBlink();
   }, 300);
 
   setTimeout(() => {
     clearInterval(interval);
   }, 2000);
-}
+};
 
-LCDModule.prototype.setText = function(msg) {
+LCDModule.prototype.setText = function setText(msg) {
   this.reset();
   this.message(msg);
-}
+};
 
-LCDModule.prototype.reset = function(msg) {
+LCDModule.prototype.reset = function reset() {
   this.clear();
-  // this.home();
-}
+};
 
-LCDModule.prototype.release = function(msg) {
+LCDModule.prototype.release = function release() {
   this.lcd.release();
-  // this.home();
-}
-
+};
 
 module.exports = LCDModule;

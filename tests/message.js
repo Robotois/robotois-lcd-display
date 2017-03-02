@@ -1,18 +1,18 @@
-var _lcd = require('../index.js'),
-  lcd = new _lcd();
+const LCD = require('../index.js');
 
-var count = 0
+const lcd = new LCD();
+let count = 0;
 
-setInterval(()=>{
+setInterval(() => {
     // lcd.message("Hola, estoy\ncontando: " + count);
-    lcd.message("Hola, estoy contando: " + count);
-    count += 1;
-},2000);
+  lcd.message(`Hola, estoy contando: ${count}`);
+  count += 1;
+}, 2000);
 
-process.on('SIGTERM', function () {
+process.on('SIGTERM', () => {
   process.exit();
 });
 
-process.on('SIGINT', function () {
+process.on('SIGINT', () => {
   process.exit();
 });
