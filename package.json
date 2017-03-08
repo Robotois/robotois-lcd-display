@@ -1,6 +1,6 @@
 {
   "name": "robotois-lcd-display",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node Library to communicate and control the LCD display module",
   "main": "index.js",
   "scripts": {
@@ -13,11 +13,13 @@
     "IOT"
   ],
   "author": "yovany@robotois.com",
-  "contributors": [{
-    "name": "Armando Gonzalez",
-    "email": "iam@armando.mx",
-    "url": "http://armando.mx/"
-  }],
+  "contributors": [
+    {
+      "name": "Armando Gonzalez",
+      "email": "iam@armando.mx",
+      "url": "http://armando.mx/"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "bindings": "^1.2.1"
