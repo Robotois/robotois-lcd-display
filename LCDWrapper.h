@@ -20,7 +20,7 @@ private:
   static void clear(const v8::FunctionCallbackInfo<v8::Value>& args);
   static void home(const v8::FunctionCallbackInfo<v8::Value>& args);
   static void setCursor(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void bklBlink(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void setBacklight(const v8::FunctionCallbackInfo<v8::Value>& args);
 
   static void release(const v8::FunctionCallbackInfo<v8::Value>& args);
 

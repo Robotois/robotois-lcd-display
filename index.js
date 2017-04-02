@@ -7,13 +7,14 @@ const LcdModule = require('bindings')('LCDModule');
 function LCDModule(add = 0) {
   const self = this;
   this.lcd = new LcdModule(add);
+  this.backlightState = true;
 
   process.on('SIGINT', () => {
-    self.lcd.release();
+    self.release();
   });
 
   process.on('SIGTERM', () => {
-    self.lcd.release();
+    self.release();
   });
 }
 
@@ -37,19 +38,42 @@ LCDModule.prototype.clear = function clear() {
 LCDModule.prototype.home = function home() {
   this.lcd.home();
 };
-LCDModule.prototype.bklBlink = function bklBlink() {
-  this.lcd.bklBlink();
+
+LCDModule.prototype.setBacklight = function setBacklight(state) {
+  this.lcd.setBacklight(state);
+  this.backlightState = state;
 };
 
-LCDModule.prototype.blink = function blink() {
-  const interval = setInterval(() => {
-    this.lcd.bklBlink();
-  }, 300);
-
-  setTimeout(() => {
-    clearInterval(interval);
-  }, 2000);
+LCDModule.prototype.backlightToggle = function backlightToggle() {
+  if (this.backlightState) {
+    this.setBacklight(false);
+  } else {
+    this.setBacklight(true);
+  }
 };
+
+LCDModule.prototype.blinkBacklight = function blinkBacklight(blinkEnable) {
+  if (blinkEnable) {
+    if (!this.blinkInterval) {
+      this.blinkInterval = setInterval(() => {
+        this.backlightToggle();
+      }, 500);
+    }
+  } else {
+    this.setBacklight(true);
+    clearInterval(this.blinkInterval);
+  }
+};
+
+// LCDModule.prototype.blink = function blink() {
+//   const interval = setInterval(() => {
+//     this.lcd.bklBlink();
+//   }, 300);
+//
+//   setTimeout(() => {
+//     clearInterval(interval);
+//   }, 2000);
+// };
 
 LCDModule.prototype.setText = function setText(msg) {
   this.reset();
@@ -61,6 +85,7 @@ LCDModule.prototype.reset = function reset() {
 };
 
 LCDModule.prototype.release = function release() {
+  this.blinkBacklight(false);
   this.lcd.release();
 };
 

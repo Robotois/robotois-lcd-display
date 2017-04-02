@@ -34,7 +34,7 @@ void LCDWrapper::Init(){
   NODE_SET_PROTOTYPE_METHOD(tpl,"clear",clear);
   NODE_SET_PROTOTYPE_METHOD(tpl,"home",home);
   NODE_SET_PROTOTYPE_METHOD(tpl,"setCursor",setCursor);
-  NODE_SET_PROTOTYPE_METHOD(tpl,"bklBlink",bklBlink);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"setBacklight",setBacklight);
   NODE_SET_PROTOTYPE_METHOD(tpl,"release",release);
 
   constructor.Reset(isolate,tpl->GetFunction());
@@ -122,12 +122,20 @@ void LCDWrapper::clear(const FunctionCallbackInfo<Value>& args){
   temp_obj->lcd->clear();
 }
 
-void LCDWrapper::bklBlink(const FunctionCallbackInfo<Value>& args){
+void LCDWrapper::setBacklight(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
+  uint8_t _argc = args.Length();
+  if(_argc != 1){
+    isolate->ThrowException(Exception::TypeError(
+    String::NewFromUtf8(isolate, "Wrong arguments for LCD Module...")));
+  }
+
+  uint8_t state = (uint8_t) args[0]->NumberValue();
+
   LCDWrapper* temp_obj = ObjectWrap::Unwrap<LCDWrapper>(args.Holder());
-  temp_obj->lcd->bklBlink();
+  temp_obj->lcd->setBacklight(state);
 }
 
 void LCDWrapper::home(const FunctionCallbackInfo<Value>& args){

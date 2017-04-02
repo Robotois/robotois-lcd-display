@@ -1,13 +1,14 @@
 const LCD = require('../index.js');
 
 const lcd = new LCD();
+
 let count = 0;
 
 setInterval(() => {
-    // lcd.message("Hola, estoy\ncontando: " + count);
-  lcd.message(`Hola, estoy contando: ${count}`);
-  count += 1;
-}, 2000);
+  const stringCount = (`   ${count.toString()}`).slice(-3);
+  lcd.message(`Hola, estoy\ncontando: ${stringCount}`);
+  count += 10;
+}, 500);
 
 process.on('SIGTERM', () => {
   process.exit();
