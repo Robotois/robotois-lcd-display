@@ -10,7 +10,7 @@
 #include<iostream>
 #include <unistd.h>
 #include <string>
-#include "../../Libraries/Timer/AccurateTiming.h"
+#include "./libraries/robotois-timer/AccurateTiming.h"
 
 #include "LCDModule.h"
 

@@ -3,7 +3,7 @@
 
 #include <node.h>
 #include <node_object_wrap.h>
-#include "src/Modules/LCD/LCDModule.h"
+#include "../LCDModule.h"
 
 class LCDWrapper : public node::ObjectWrap {
 public:

@@ -8,6 +8,7 @@ function LCDModule(add = 0) {
   const self = this;
   this.lcd = new LcdModule(add);
   this.backlightState = true;
+  this.sensorText = '';
 
   process.on('SIGINT', () => {
     self.release();
@@ -65,16 +66,6 @@ LCDModule.prototype.blinkBacklight = function blinkBacklight(blinkEnable) {
   }
 };
 
-// LCDModule.prototype.blink = function blink() {
-//   const interval = setInterval(() => {
-//     this.lcd.bklBlink();
-//   }, 300);
-//
-//   setTimeout(() => {
-//     clearInterval(interval);
-//   }, 2000);
-// };
-
 LCDModule.prototype.setText = function setText(msg) {
   this.reset();
   this.message(msg);
@@ -87,6 +78,22 @@ LCDModule.prototype.reset = function reset() {
 LCDModule.prototype.release = function release() {
   this.blinkBacklight(false);
   this.lcd.release();
+};
+
+/*
+Specialized functions
+ */
+
+LCDModule.prototype.displaySensor = function displaySensor(params) {
+  // const length = params.text.length() + params.value.length() + params.unit.length() + 1;
+  const dispString = `${params.text} ${params.value}${params.unit}`;
+  // console.log((`${dispString}                `));
+  if (dispString.length <= 16) {
+    this.message((`${dispString}                `).substr(0, 15));
+  } else {
+    this.message((`${params.text}                `).substr(0, 15), 1);
+    this.message((`${params.value}${params.unit}                `).substr(0, 15), 2);
+  }
 };
 
 module.exports = LCDModule;

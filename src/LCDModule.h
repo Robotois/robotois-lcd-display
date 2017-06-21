@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   LCDModule.h
  * Author: yova
  *
@@ -8,7 +8,7 @@
 #ifndef LCDMODULE_H
 #define	LCDMODULE_H
 
-#include "../../Libraries/MCP23008/MCP23008.h"
+#include "./libraries/robotois-MCP23008/MCP23008.h"
 #include <string>
 
 // commands
@@ -59,7 +59,7 @@ public:
     LCDModule(uint8_t _addr = 0x00);
     LCDModule(const LCDModule& orig);
     virtual ~LCDModule();
-    
+
     void initializeLCD();
     void printChar(char _char);
     void message(std::string _string);
@@ -72,9 +72,9 @@ public:
     void setCursor(uint8_t row, uint8_t col);
     void clear();
     void home();
-    
+
     void release();
-    
+
 private:
     uint8_t _rs_pin; // LOW: command.  HIGH: character.
     uint8_t _rw_pin; // LOW: write to LCD.  HIGH: read from LCD.
@@ -96,15 +96,14 @@ private:
     uint8_t _i2cAddr;
 
     MCP23008 *mcp;
-    
+
     void writeData(uint8_t value);
     void send(uint8_t value, uint8_t mode);
     void command(uint8_t value);
-    
+
     void display();
-    void nextLine();    
+    void nextLine();
 
 };
 
 #endif	/* LCDMODULE_H */
-

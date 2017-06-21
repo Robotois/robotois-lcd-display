@@ -2,10 +2,10 @@
   "targets": [
     {
       "target_name": "LCDModule",
-      "sources": [ "LCDModule.cpp","LCDWrapper.cpp",
-      "src/Modules/LCD/LCDModule.cpp",
-      "src/Libraries/MCP23008/MCP23008.cpp",
-      "src/Libraries/Timer/AccurateTiming.cpp"
+      "sources": [ "src/wrapper/LCDModule.cpp","src/wrapper/LCDWrapper.cpp",
+      "src/LCDModule.cpp",
+      "src/libraries/robotois-MCP23008/MCP23008.cpp",
+      "src/libraries/robotois-timer/AccurateTiming.cpp"
       ],
       "libraries": ["-l bcm2835","-l rt"]
     }
