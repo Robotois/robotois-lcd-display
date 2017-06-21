@@ -1,6 +1,6 @@
 # Test the C++ Library
 
-In the file `tests.cpp` it is provided a simple test for the LCD Display module. The test consist in showing a simple message of a counter changing its value every 1s.
+In the file `test.cpp` it is provided a simple test for the LCD Display module. The test consist in showing a simple message of a counter changing its value every 1s.
 
 To run the test follow these steps:
 

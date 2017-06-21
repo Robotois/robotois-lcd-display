@@ -9,6 +9,7 @@ function LCDModule(add = 0) {
   this.lcd = new LcdModule(add);
   this.backlightState = true;
   this.sensorText = '';
+  this.blinkInterval = false;
 
   process.on('SIGINT', () => {
     self.release();
@@ -63,6 +64,7 @@ LCDModule.prototype.blinkBacklight = function blinkBacklight(blinkEnable) {
   } else {
     this.setBacklight(true);
     clearInterval(this.blinkInterval);
+    this.blinkInterval = false;
   }
 };
 
@@ -85,9 +87,7 @@ Specialized functions
  */
 
 LCDModule.prototype.displaySensor = function displaySensor(params) {
-  // const length = params.text.length() + params.value.length() + params.unit.length() + 1;
   const dispString = `${params.text} ${params.value}${params.unit}`;
-  // console.log((`${dispString}                `));
   if (dispString.length <= 16) {
     this.message((`${dispString}                `).substr(0, 15));
   } else {
