@@ -87,12 +87,13 @@ Specialized functions
  */
 
 LCDModule.prototype.displaySensor = function displaySensor(params) {
-  const dispString = `${params.text} ${params.value}${params.unit}`;
+  const unit = params.unit || '';
+  const dispString = `${params.text} ${params.value}${unit}`;
   if (dispString.length <= 16) {
     this.message((`${dispString}                `).substr(0, 15));
   } else {
     this.message((`${params.text}                `).substr(0, 15), 1);
-    this.message((`${params.value}${params.unit}                `).substr(0, 15), 2);
+    this.message((`${params.value}${unit}                `).substr(0, 15), 2);
   }
 };
 
