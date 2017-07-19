@@ -167,7 +167,7 @@ void LCDModule::printChar(char _char){
 }
 
 void LCDModule::message(std::string _string){
-    uint8_t length = 1;
+    uint8_t length = 0;
     for(char& c:_string){
         if(length == 16 or c == '\n'){
             nextLine();

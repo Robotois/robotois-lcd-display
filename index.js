@@ -54,7 +54,7 @@ LCDModule.prototype.backlightToggle = function backlightToggle() {
   }
 };
 
-LCDModule.prototype.blinkBacklight = function blinkBacklight(blinkEnable) {
+LCDModule.prototype.blink = function blink(blinkEnable) {
   if (blinkEnable) {
     if (!this.blinkInterval) {
       this.blinkInterval = setInterval(() => {
@@ -78,7 +78,7 @@ LCDModule.prototype.reset = function reset() {
 };
 
 LCDModule.prototype.release = function release() {
-  this.blinkBacklight(false);
+  this.blink(false);
   this.lcd.release();
 };
 
@@ -86,15 +86,9 @@ LCDModule.prototype.release = function release() {
 Specialized functions
  */
 
-LCDModule.prototype.displaySensor = function displaySensor(params) {
-  const unit = params.unit || '';
-  const dispString = `${params.text} ${params.value}${unit}`;
-  if (dispString.length <= 16) {
-    this.message((`${dispString}                `).substr(0, 15));
-  } else {
-    this.message((`${params.text}                `).substr(0, 15), 1);
-    this.message((`${params.value}${unit}                `).substr(0, 15), 2);
-  }
+LCDModule.prototype.displaySensor = function displaySensor(text, value, unit) {
+  const dispString = `${text} ${value}${unit || ''}`;
+  this.message(dispString);
 };
 
 module.exports = LCDModule;

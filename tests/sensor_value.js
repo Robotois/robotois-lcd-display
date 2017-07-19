@@ -5,14 +5,14 @@ const lcd = new LCD();
 let value = 0;
 let params = {
   text: 'Temp:',
-  unit: 'C'
+  unit: '°C'
 };
 
 setInterval(() => {
   params.value = value;
   // const stringCount = (`   ${value.toString()}`).slice(-3);
   // lcd.message(`Hola, estoy\ncontando: ${stringCount}`);
-  lcd.displaySensor(params);
+  lcd.displaySensor('La temperatura es', value, 'C');
   value += 10;
 }, 1000);
 

@@ -4,7 +4,7 @@ const lcd = new LCD();
 
 lcd.message('Hola mundo!!');
 
-lcd.blinkBacklight(true);
+lcd.blink(true);
 
 // setInterval(() => {
 //   lcd.backlightToggle();
@@ -12,7 +12,7 @@ lcd.blinkBacklight(true);
 
 // console.log();
 setTimeout(() => {
-  lcd.blinkBacklight(false);
+  lcd.blink(false);
 }, 5000);
 
 setTimeout(() => {
