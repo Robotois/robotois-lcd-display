@@ -8,7 +8,7 @@ function LCDModule(add = 0) {
   const self = this;
   this.lcd = new LcdModule(add);
   this.backlightState = true;
-  this.sensorText = '';
+  this.prevMessage = '';
   this.blinkInterval = false;
 
   process.on('SIGINT', () => {
@@ -20,13 +20,26 @@ function LCDModule(add = 0) {
   });
 }
 
+const buildMessage = (currentMessage, prevMessage) => {
+  /*
+  Fill with empty spaces to clear prev message completely, thi is performed so it won't
+  be necessary to RESET the LCD display entirely each time there is a new message, because in that
+  case it will be produced a little flash.
+   */
+  if (prevMessage.length > currentMessage.length ){
+    return currentMessage.concat(' '.repeat(prevMessage.length - currentMessage.length));
+  }
+  return currentMessage;
+};
+
 LCDModule.prototype.message = function message(msg, row) {
   if (row === 2 || row === 1) {
     this.lcd.setCursor(row, 1);
   } else {
     this.lcd.home();
   }
-  this.lcd.message(msg);
+  this.lcd.message(buildMessage(msg, this.prevMessage));
+  this.prevMessage = msg;
 };
 
 LCDModule.prototype.setCursor = function setCursor(row, col) {
