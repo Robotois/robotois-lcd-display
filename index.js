@@ -38,8 +38,10 @@ LCDModule.prototype.message = function message(msg, row) {
   } else {
     this.lcd.home();
   }
-  this.lcd.message(buildMessage(msg, this.prevMessage));
-  this.prevMessage = msg;
+  if(this.prevMessage !== msg){
+    this.lcd.message(buildMessage(msg, this.prevMessage));
+    this.prevMessage = msg;
+  }
 };
 
 LCDModule.prototype.setCursor = function setCursor(row, col) {
@@ -48,6 +50,7 @@ LCDModule.prototype.setCursor = function setCursor(row, col) {
 
 LCDModule.prototype.clear = function clear() {
   this.lcd.clear();
+  this.prevMessage = '';
 };
 
 LCDModule.prototype.home = function home() {
