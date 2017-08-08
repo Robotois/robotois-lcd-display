@@ -26,19 +26,15 @@ const buildMessage = (currentMessage, prevMessage) => {
   be necessary to RESET the LCD display entirely each time there is a new message, because in that
   case it will be produced a little flash.
    */
-  if (prevMessage.length > currentMessage.length ){
+  if (prevMessage.length > currentMessage.length) {
     return currentMessage.concat(' '.repeat(prevMessage.length - currentMessage.length));
   }
   return currentMessage;
 };
 
-LCDModule.prototype.message = function message(msg, row) {
-  if (row === 2 || row === 1) {
-    this.lcd.setCursor(row, 1);
-  } else {
+LCDModule.prototype.message = function message(msg) {
+  if (this.prevMessage !== msg) {
     this.lcd.home();
-  }
-  if(this.prevMessage !== msg){
     this.lcd.message(buildMessage(msg, this.prevMessage));
     this.prevMessage = msg;
   }
@@ -60,6 +56,8 @@ LCDModule.prototype.home = function home() {
 LCDModule.prototype.setBacklight = function setBacklight(state) {
   this.lcd.setBacklight(state);
   this.backlightState = state;
+  clearInterval(this.blinkInterval);
+  this.blinkInterval = false;
 };
 
 LCDModule.prototype.backlightToggle = function backlightToggle() {
