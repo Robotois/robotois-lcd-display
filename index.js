@@ -32,10 +32,23 @@ const buildMessage = (currentMessage, prevMessage) => {
   return currentMessage;
 };
 
+LCDModule.prototype.publishNow = function publishNow() {
+  this.mqttClient.publish(this.myTopic, this.prevMessage);
+};
+
+LCDModule.prototype.setMqttClient = function setMqttClient(mqttConfig) {
+  this.mqttClient = mqttConfig.mqttClient;
+  this.myTopic = `displays/lcd${mqttConfig.instance}`;
+  this.mqttClient.publish('registerTopic', this.myTopic);
+};
+
 LCDModule.prototype.message = function message(msg) {
   if (this.prevMessage !== msg) {
     this.lcd.home();
     this.lcd.message(buildMessage(msg, this.prevMessage));
+    if (this.mqttClient) {
+      this.mqttClient.publish(this.myTopic, msg);
+    }
     this.prevMessage = msg;
   }
 };
