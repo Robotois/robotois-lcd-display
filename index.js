@@ -39,7 +39,6 @@ LCDModule.prototype.publishNow = function publishNow() {
 LCDModule.prototype.setMqttClient = function setMqttClient(mqttConfig) {
   this.mqttClient = mqttConfig.mqttClient;
   this.myTopic = `displays/lcd${mqttConfig.instance}`;
-  this.mqttClient.publish('registerTopic', this.myTopic);
 };
 
 LCDModule.prototype.message = function message(msg) {

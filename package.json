@@ -1,6 +1,6 @@
 {
   "name": "robotois-lcd-display",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Node Library to communicate and control the LCD display module",
   "main": "index.js",
   "scripts": {
